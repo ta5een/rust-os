@@ -1,4 +1,4 @@
-name: Build and test `rust-os`
+name: rust-os
 
 on: [push, pull_request]
 
@@ -31,6 +31,7 @@ jobs:
           command: check
 
   test:
+    name: Test
     strategy:
       matrix:
         platform:
