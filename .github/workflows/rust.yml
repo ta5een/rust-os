@@ -31,7 +31,6 @@ jobs:
           command: check
 
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         platform:
