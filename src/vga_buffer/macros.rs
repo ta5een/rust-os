@@ -39,9 +39,6 @@ macro_rules! eprintln {
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
     use core::fmt::Write;
-
-    #[cfg(not(test))]
-    // writer::writer().write_fmt(args).unwrap();
     writer::WRITER.lock().write_fmt(args).unwrap();
 }
 
@@ -50,6 +47,33 @@ pub fn _print(args: fmt::Arguments) {
 #[doc(hidden)]
 pub fn _eprint(args: fmt::Arguments) {
     use core::fmt::Write;
-    // writer::ewriter().write_fmt(args).unwrap();
     writer::EWRITER.lock().write_fmt(args).unwrap();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test_case]
+    fn test_println_simple() {
+        println!("Hello, world!");
+    }
+
+    #[test_case]
+    fn test_println_many() {
+        for _ in 0..200 {
+            println!("Hello, world!");
+        }
+    }
+
+    #[test_case]
+    fn test_println_output() {
+        let string = "Some test string that fits on a single line";
+        println!("{}", string);
+        for (i, c) in string.chars().enumerate() {
+            let screen_char =
+                writer::WRITER.lock().buffer.chars[BUFFER_HEIGHT - 2][i].read();
+            assert_eq!(char::from(screen_char.ascii_char), c);
+        }
+    }
 }

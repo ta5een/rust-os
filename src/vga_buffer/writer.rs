@@ -8,7 +8,6 @@ lazy_static! {
         color_code: ColorCode::default(),
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     });
-
     pub static ref EWRITER: Mutex<Writer> = Mutex::new(Writer {
         column_pos: 0,
         color_code: ColorCode::error(),
@@ -17,9 +16,9 @@ lazy_static! {
 }
 
 pub struct Writer {
-    column_pos: usize,
-    color_code: ColorCode,
-    buffer: &'static mut Buffer,
+    pub(crate) column_pos: usize,
+    pub(crate) color_code: ColorCode,
+    pub(crate) buffer: &'static mut Buffer,
 }
 
 impl Writer {

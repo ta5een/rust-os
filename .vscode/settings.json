@@ -3,4 +3,5 @@
     "editor.tabSize": 2,
   },
   "editor.formatOnSave": true,
+  "rust-analyzer.inlayHints.enable": false,
 }

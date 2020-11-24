@@ -8,20 +8,20 @@ const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
 #[repr(transparent)]
-struct Buffer {
+pub(crate) struct Buffer {
     chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 #[repr(C)]
-struct ScreenChar {
+pub(crate) struct ScreenChar {
     ascii_char: u8,
     color_code: ColorCode,
 }
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 #[repr(transparent)]
-struct ColorCode(u8);
+pub struct ColorCode(u8);
 
 impl ColorCode {
     pub fn new(foreground: Color, background: Color) -> ColorCode {
@@ -34,10 +34,6 @@ impl ColorCode {
 
     pub fn error() -> Self {
         Self::new(Color::LightRed, Color::Black)
-    }
-
-    pub fn input() -> Self {
-        Self::new(Color::Yellow, Color::Black)
     }
 }
 

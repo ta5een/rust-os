@@ -12,7 +12,6 @@ use core::panic::PanicInfo;
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Hello, world!");
-    println!("1.3 * 2.4 = {}", 1.3 * 2.4);
 
     #[cfg(test)]
     test_main();
@@ -71,7 +70,7 @@ where
 
 #[cfg(test)]
 fn test_runner(tests: &[&dyn Testable]) {
-    serial_println!("Running {} tests...\n", tests.len());
+    serial_println!("\nRunning {} tests...\n", tests.len());
 
     for test in tests {
         test.run();
